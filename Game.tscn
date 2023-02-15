@@ -1,3 +1,57 @@
-[gd_scene format=2]
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=1]
+[ext_resource path="res://UI/Pause_Menu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/pexels-alex-andrews-816608.jpg" type="Texture" id=3]
+[ext_resource path="res://Asteroid/Asteroid.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Enemy/Enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Player/Player_Container.gd" type="Script" id=6]
+[ext_resource path="res://Camera.gd" type="Script" id=7]
+[ext_resource path="res://Assets/455017__annoyedcactus__8bit-music-for-game.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/259962__thehorriblejoke__8-bit-explosion.wav" type="AudioStream" id=9]
 
 [node name="Game" type="Node2D"]
+__meta__ = {
+"_editor_description_": "The root of the scene"
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+light_mask = 0
+position = Vector2( 512, -200 )
+scale = Vector2( 0.254, 0.254 )
+texture = ExtResource( 3 )
+
+[node name="Player_Container" type="Node2D" parent="."]
+script = ExtResource( 6 )
+
+[node name="Asteroid_Container" type="Node2D" parent="."]
+
+[node name="Asteroid" parent="Asteroid_Container" instance=ExtResource( 4 )]
+position = Vector2( 100, 100 )
+
+[node name="Asteroid2" parent="Asteroid_Container" instance=ExtResource( 4 )]
+position = Vector2( 800, 500 )
+
+[node name="Effects" type="Node2D" parent="."]
+
+[node name="Enemy_Container" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemy_Container" instance=ExtResource( 5 )]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource( 1 )]
+
+[node name="Pause_Menu" parent="UI" instance=ExtResource( 2 )]
+visible = false
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="theme" type="AudioStreamPlayer2D" parent="."]
+pause_mode = 2
+stream = ExtResource( 8 )
+autoplay = true
+
+[node name="expo" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 9 )
